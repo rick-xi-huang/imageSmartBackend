@@ -20,5 +20,5 @@
     "body-parser": "latest",
     "cloudinary": "^1.19.0",
     "cors": "^2.8.5"
-  },
+  }
 }
