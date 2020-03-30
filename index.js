@@ -29,7 +29,7 @@ const db = knex({
 });
 
 app.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+    res.send("server success");
 });
 
 app.get('/face-detection', function(req, res, next) {
