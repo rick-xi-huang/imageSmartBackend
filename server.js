@@ -92,7 +92,7 @@ app.post('/image-upload', (req, res) => {
                 db("images").insert({
                 email: req.body.email,
                 image: result,
-                publicID: result["public_id"],
+                publicid: result["public_id"],
                 }).catch((err) => {console.log(err);})
             });
             return Promise.all(promisearr);
@@ -106,7 +106,7 @@ app.post('/image-upload', (req, res) => {
 
 app.delete('/image-delete', (req, res) => {
     db('images')
-        .where('publicID', "=", req.query.id)
+        .where('publicid', "=", req.query.id)
         .del()
         .then(() => res.json("image deleted"))
         .then(() => cloudinary.v2.uploader.destroy(req.query.id))
@@ -137,9 +137,7 @@ app.post('/register', (req, res) => {
                         joined: new Date()
                     })
                     .then(users => {
-                        let user  = users[0];
-                        user["images"] = [];
-                        res.json(user);
+                        res.json(users[0]);
                     })
             })
             .then(trx.commit)
