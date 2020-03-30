@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const port = 3001;
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const knex = require('knex');
@@ -8,6 +7,12 @@ const bcrypt = require('bcryptjs');
 
 const cloudinary = require('cloudinary');
 const formData = require('express-form-data');
+
+const PORT = process.env.PORT || 3001;
+
+const vision = require('@google-cloud/vision');
+
+const client = new vision.ImageAnnotatorClient();
 
 app.use(cors());
 app.use(formData.parse());
@@ -22,10 +27,6 @@ const db = knex({
         database : 'image-ai'
     }
 });
-
-const vision = require('@google-cloud/vision');
-
-const client = new vision.ImageAnnotatorClient();
 
 app.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
@@ -175,5 +176,5 @@ app.post('/signin', (req, res) => {
         .catch(err => res.status(400).json('wrong credentials' + err))
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
 
