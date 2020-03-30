@@ -137,7 +137,9 @@ app.post('/register', (req, res) => {
                         joined: new Date()
                     })
                     .then(users => {
-                        res.json(users[0]);
+                        let user = users[0];
+                        user["images"] = [];
+                        res.json(user);
                     })
             })
             .then(trx.commit)
