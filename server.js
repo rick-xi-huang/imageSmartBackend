@@ -139,13 +139,17 @@ app.post('/register', (req, res) => {
                     .then(users => {
                         let user = users[0];
                         user["images"] = [];
+                        console.log(user);
                         res.json(user);
                     })
             })
             .then(trx.commit)
             .catch(trx.rollback)
     })
-        .catch(err => res.status(400).json('unable to register' + err))
+        .catch(err => {
+            console.log(err);
+            res.status(400).json('unable to register' + err);
+            })
 });
 
 app.post('/signin', (req, res) => {
