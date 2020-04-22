@@ -34,47 +34,73 @@ app.get('/', function(req, res, next) {
     res.send("server success");
 });
 
-app.get('/face-detection', function(req, res, next) {
-    detectFace(req.query.url)
-        .then((data) => {
-            console.log(data);
-            res.json(data)});
+
+app.get('/image-detection', function(req, res, next) {
+   let type = req.query.type;
+   let url = req.query.url;
+   switch (type) {
+       case "face":
+           detectFace(url).then((data) => {res.json(data)});
+           break;
+       case "object":
+           detectObject(url).then((data) => {res.json(data)});
+           break;
+       case "landmark":
+           detectLandmark(url).then((data) => {res.json(data)});
+           break;
+       case "text":
+           detectText(url).then((data) => {res.json(data)});
+           break;
+       case "color":
+           detectColor(url).then((data) => {res.json(data)});
+           break;
+       case "label":
+           detectLabel(url).then((data) => {res.json(data)});
+           break;
+   }
 });
 
-app.get('/object-detection', function(req, res, next) {
-    detectObject(req.query.url)
-        .then((data) => {
-            console.log(data);
-            res.json(data)});
-});
-
-app.get('/landmark-detection', function(req, res, next) {
-    detectLandmark(req.query.url)
-        .then((data) => {
-            console.log(data);
-            res.json(data)});
-});
-
-app.get('/text-detection', function(req, res, next) {
-    detectText(req.query.url)
-        .then((data) => {
-            console.log(data);
-            res.json(data)});
-});
-
-app.get('/color-detection', function(req, res, next) {
-    detectColor(req.query.url)
-        .then((data) => {
-            console.log(data);
-            res.json(data)});
-});
-
-app.get('/label-detection', function(req, res, next) {
-    detectLabel(req.query.url)
-        .then((data) => {
-            console.log(data);
-            res.json(data)});
-});
+// app.get('/face-detection', function(req, res, next) {
+//     detectFace(req.query.url)
+//         .then((data) => {
+//             console.log(data);
+//             res.json(data)});
+// });
+//
+// app.get('/object-detection', function(req, res, next) {
+//     detectObject(req.query.url)
+//         .then((data) => {
+//             console.log(data);
+//             res.json(data)});
+// });
+//
+// app.get('/landmark-detection', function(req, res, next) {
+//     detectLandmark(req.query.url)
+//         .then((data) => {
+//             console.log(data);
+//             res.json(data)});
+// });
+//
+// app.get('/text-detection', function(req, res, next) {
+//     detectText(req.query.url)
+//         .then((data) => {
+//             console.log(data);
+//             res.json(data)});
+// });
+//
+// app.get('/color-detection', function(req, res, next) {
+//     detectColor(req.query.url)
+//         .then((data) => {
+//             console.log(data);
+//             res.json(data)});
+// });
+//
+// app.get('/label-detection', function(req, res, next) {
+//     detectLabel(req.query.url)
+//         .then((data) => {
+//             console.log(data);
+//             res.json(data)});
+// });
 
 async function detectFace(imageURL){
     const [result] = await client.faceDetection(imageURL);
