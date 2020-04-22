@@ -55,28 +55,62 @@ app.get('/landmark-detection', function(req, res, next) {
             res.json(data)});
 });
 
-async function detectFace(imageURL){
+app.get('/text-detection', function(req, res, next) {
+    detectText(req.query.url)
+        .then((data) => {
+            console.log(data);
+            res.json(data)});
+});
 
+app.get('/color-detection', function(req, res, next) {
+    detectColor(req.query.url)
+        .then((data) => {
+            console.log(data);
+            res.json(data)});
+});
+
+app.get('/label-detection', function(req, res, next) {
+    detectLabel(req.query.url)
+        .then((data) => {
+            console.log(data);
+            res.json(data)});
+});
+
+async function detectFace(imageURL){
     const [result] = await client.faceDetection(imageURL);
     const faces = result.faceAnnotations;
     return faces;
 }
 
 async function detectObject(imageURL){
-
     const [result] = await client.objectLocalization(imageURL);
     const objects = result.localizedObjectAnnotations;
     return objects;
 }
 
 async function detectLandmark(imageURL){
-
     const [result] = await client.landmarkDetection(imageURL);
     const landmarks = result.landmarkAnnotations;
     return landmarks;
-
 }
 
+async function detectText(imageURL){
+    const [result] = await client.textDetection(imageURL);
+    const texts = result.textAnnotations;
+    return texts;
+}
+
+async function detectColor(imageURL){
+    const [result] = await client.imageProperties(imageURL);
+    const colors = result.imagePropertiesAnnotation.dominantColors.colors;
+    return colors;
+}
+
+async function detectLabel(imageURL){
+    const [result] = await client.labelDetection(imageURL);
+    const labels = result.labelAnnotations;
+    return labels;
+}
 
 
 app.post('/image-upload', (req, res) => {
@@ -139,7 +173,6 @@ app.post('/register', (req, res) => {
                     .then(users => {
                         let user = users[0];
                         user["images"] = [];
-                        console.log(user);
                         res.json(user);
                     })
             })
@@ -147,7 +180,6 @@ app.post('/register', (req, res) => {
             .catch(trx.rollback)
     })
         .catch(err => {
-            console.log(err);
             res.status(400).json('unable to register' + err);
             })
 });
