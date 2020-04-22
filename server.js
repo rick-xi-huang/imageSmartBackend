@@ -60,48 +60,6 @@ app.get('/image-detection', function(req, res, next) {
    }
 });
 
-// app.get('/face-detection', function(req, res, next) {
-//     detectFace(req.query.url)
-//         .then((data) => {
-//             console.log(data);
-//             res.json(data)});
-// });
-//
-// app.get('/object-detection', function(req, res, next) {
-//     detectObject(req.query.url)
-//         .then((data) => {
-//             console.log(data);
-//             res.json(data)});
-// });
-//
-// app.get('/landmark-detection', function(req, res, next) {
-//     detectLandmark(req.query.url)
-//         .then((data) => {
-//             console.log(data);
-//             res.json(data)});
-// });
-//
-// app.get('/text-detection', function(req, res, next) {
-//     detectText(req.query.url)
-//         .then((data) => {
-//             console.log(data);
-//             res.json(data)});
-// });
-//
-// app.get('/color-detection', function(req, res, next) {
-//     detectColor(req.query.url)
-//         .then((data) => {
-//             console.log(data);
-//             res.json(data)});
-// });
-//
-// app.get('/label-detection', function(req, res, next) {
-//     detectLabel(req.query.url)
-//         .then((data) => {
-//             console.log(data);
-//             res.json(data)});
-// });
-
 async function detectFace(imageURL){
     const [result] = await client.faceDetection(imageURL);
     const faces = result.faceAnnotations;
