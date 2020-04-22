@@ -30,12 +30,12 @@ const db = knex({
     }
 });
 
-app.get('/', function(req, res, next) {
+app.get('/', function(req, res) {
     res.send("server success");
 });
 
 
-app.get('/image-detection', function(req, res, next) {
+app.get('/image-detection', function(req, res) {
    let type = req.query.type;
    let url = req.query.url;
    switch (type) {
@@ -62,38 +62,32 @@ app.get('/image-detection', function(req, res, next) {
 
 async function detectFace(imageURL){
     const [result] = await client.faceDetection(imageURL);
-    const faces = result.faceAnnotations;
-    return faces;
+    return result.faceAnnotations;
 }
 
 async function detectObject(imageURL){
     const [result] = await client.objectLocalization(imageURL);
-    const objects = result.localizedObjectAnnotations;
-    return objects;
+    return result.localizedObjectAnnotations;
 }
 
 async function detectLandmark(imageURL){
     const [result] = await client.landmarkDetection(imageURL);
-    const landmarks = result.landmarkAnnotations;
-    return landmarks;
+    return result.landmarkAnnotations;
 }
 
 async function detectText(imageURL){
     const [result] = await client.textDetection(imageURL);
-    const texts = result.textAnnotations;
-    return texts;
+    return result.textAnnotations;
 }
 
 async function detectColor(imageURL){
     const [result] = await client.imageProperties(imageURL);
-    const colors = result.imagePropertiesAnnotation.dominantColors.colors;
-    return colors;
+    return result.imagePropertiesAnnotation.dominantColors.colors;
 }
 
 async function detectLabel(imageURL){
     const [result] = await client.labelDetection(imageURL);
-    const labels = result.labelAnnotations;
-    return labels;
+    return result.labelAnnotations;
 }
 
 
