@@ -14,7 +14,7 @@
   "dependencies": {
     "@google-cloud/vision": "^1.9.0",
     "bcryptjs": "^2.4.3",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-form-data": "^2.0.11",
     "knex": "^0.20.11",
     "pg": "^7.18.2",
